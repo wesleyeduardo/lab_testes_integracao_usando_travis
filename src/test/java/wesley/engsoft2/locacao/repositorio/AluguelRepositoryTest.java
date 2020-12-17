@@ -166,4 +166,15 @@ public class AluguelRepositoryTest {
 		Assertions.assertEquals(aluguel.getLocacao().getValorAluguel(), aluguel.getValorASerPago());
 	}
 
+
+	@Test
+	public void deveRetornarValorComAcrescimoDeMultas(){
+
+		Aluguel aluguel = AluguelBuilder.umAluguel().comDataDeVencimento(LocalDate.of(2020, 11, 20)).comDataDePagamento(LocalDate.of(2020, 11, 25)).constroi();
+
+		aluguel.getLocacao().setValorAluguel(new BigDecimal(2000));
+
+		Assertions.assertEquals(new BigDecimal(2033), aluguel.getValorASerPago().setScale(0, BigDecimal.ROUND_HALF_DOWN));
+	}
+
 }
